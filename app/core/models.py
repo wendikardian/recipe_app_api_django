@@ -12,7 +12,7 @@ class UserManager(BaseUserManager):
     """Manager for user"""
     def create_user(self, email, password=None, **extra_fields):
         """Create and save a new user"""
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=self.normalize_email(email), **extra_fields)
         # Django automaticly hashes the password
         user.set_password(password)
         user.save(using=self._db)
